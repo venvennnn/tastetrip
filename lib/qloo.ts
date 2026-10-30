@@ -1,0 +1,7 @@
+import 'server-only';
+import type {City, Interest, Stop} from './types';
+export class ProviderError extends Error {constructor(message:string,public status=502){super(message)}}
+const hosts=new Set(['https://hackathon.api.qloo.com','https://api.qloo.com','https://staging.api.qloo.com']);
+export async function qloo(path:string,params:Record<string,string>){const key=process.env.QLOO_API_KEY;if(!key)throw new ProviderError('Live Qloo is not connected. Add QLOO_API_KEY in Vercel, or explore the complete demo.',503);const base=(process.env.QLOO_BASE_URL||'https://hackathon.api.qloo.com').replace(/\/$/,'');if(!hosts.has(base))throw new ProviderError('QLOO_BASE_URL must be an official Qloo environment.',500);const url=new URL(path,base);Object.entries(params).forEach(([k,v])=>url.searchParams.set(k,v));let r:Response;try{r=await fetch(url,{headers:{'X-Api-Key':key},signal:AbortSignal.timeout(15000),cache:'no-store'});}catch{throw new ProviderError('Qloo timed out. Please try again.',504)}if(!r.ok)throw new ProviderError(r.status===401?'Qloo rejected the key. Hackathon keys require the hackathon base URL.':r.status===429?'Qloo rate limit reached. Please wait and retry.':`Qloo request failed (${r.status}).`,r.status===429?429:502);return r.json();}
+export {entities,interest,destination,venue} from './qloo-shapes';
+export function apiError(e:unknown){const err=e instanceof ProviderError?e:new ProviderError('The provider returned an unexpected response. Please try again.');return Response.json({error:err.message},{status:err.status});}

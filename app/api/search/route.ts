@@ -1,0 +1,2 @@
+import {qloo,entities,interest,apiError} from '@/lib/qloo';
+export async function GET(req:Request){try{const u=new URL(req.url),query=u.searchParams.get('q')?.trim();if(!query||query.length<2||query.length>100)return Response.json({error:'Enter 2–100 characters.'},{status:400});const data=await qloo('/search',{query});return Response.json({interests:entities(data).map(interest).filter(Boolean),source:'qloo'});}catch(e){return apiError(e)}}
