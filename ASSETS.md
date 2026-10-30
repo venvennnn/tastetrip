@@ -15,4 +15,6 @@ Images are travel inspiration, not verified venue photographs.
 - Earth: https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg
 
 Unsplash terms: https://unsplash.com/license
-Map attribution: © OpenStreetMap contributors. Leaflet retains attribution in the map itself.
+Map attribution (when street maps are configured): © MapTiler, © OpenStreetMap contributors. Leaflet retains attribution. The key-free grid is decorative; cluster locations are geographic.
+
+Default street basemap: https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer (public metadata verified). Attribution: Esri, HERE, Garmin, USGS, OpenStreetMap contributors and the GIS User Community.
