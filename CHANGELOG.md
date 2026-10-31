@@ -6,7 +6,7 @@
 - Every venue is assigned once. Sparse days remain sparse. Deduplication uses IDs and matching names close in space.
 - Swaps/feedback cannot reuse venues from another day; visited state survives day changes. Undo restores the full prior trip.
 - All-clusters map with per-day colors and computed geographic radii. Public Esri street layer with a geometric fallback when external tiles fail. Optional MapTiler street layer.
-- Budget shows each category's percentage of total user budget, overrun or remainder, and source/status. Live costs can be entered manually; missing values stay unknown.
+- Budget amounts are shown in USD. Demo sample costs are the original INR figures converted at ₹83 = $1. Live costs can be entered manually; missing values stay unknown. Each category shows its percentage of the total user budget, plus overrun or remainder.
 - Live mode purges sample state and discards stale responses. No sample costs or curated city imagery masquerade as live data.
 - Cultural-compass bars use the actual selected favorites, replacing fixed decorative values.
 - Qloo venue request enlarged to 50 real candidates for better multi-day coverage; configurable visit-duration assumption.
