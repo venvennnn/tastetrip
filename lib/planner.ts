@@ -1,5 +1,5 @@
 import type { City, Profile, Scheduled, Stop } from './types';
-export const money = (n: number) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(n);
+export const money = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
 export const clock = (m: number) => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 export function haversine(a: { lat: number; lon: number }, b: { lat: number; lon: number }) {
   const r = Math.PI / 180, dl = (b.lat - a.lat) * r, dn = (b.lon - a.lon) * r;
@@ -10,7 +10,7 @@ export function estimate(city: City, p: Profile) {
   if (city.status !== 'demo' || !city.costs) return null;
   const k = p.days / 4, rooms = Math.ceil(p.travelers / 2), flights = city.costs.flights * p.travelers;
   const stay = city.costs.stay * ((p.days - 1) / 3) * rooms, food = city.costs.food * k * p.travelers, local = city.costs.local * k * p.travelers;
-  const reserve = Math.ceil((flights + stay + food + local) * .1 / 100) * 100;
+  const reserve = Math.ceil((flights + stay + food + local) * .1);
   return { flights, stay, food, local, reserve, total: flights + stay + food + local + reserve };
 }
 export const percentOfBudget = (cost: number, budget: number) => budget > 0 ? cost / budget * 100 : null;
